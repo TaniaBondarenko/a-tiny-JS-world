@@ -7,70 +7,60 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-const cat = {
-  species: 'cat',
-  name: 'Toby',
-  gender: 'male',
-  legs: 4,
-  hands: 0,
-  saying: 'Meow! Feed me!',
-  friends:"no one"
+class Inhabitant {
+  constructor(name, gender, saying, friends) {
+    this.name = name;
+    this.gender = gender;
+    this.saying = saying;
+    this.friends = friends;
+  }
+  toString() {
+    return (` I\'m <b>${this.name}</b>, a ${this.gender}. To my friend ${this.friends} I always say: "${this.saying}"`);
+  }
 };
 
-const dog = {
-  species: 'dog',
-  name: 'Rex',
-  gender: 'male',
-  legs: 4,
-  hands: 0,
-   saying: 'Woof-woof!',
-   friends: ""
-};
-
-const man = {
-  species: 'human',
-  name: 'Bill',
-  gender: 'male',
-  legs: 2,
-  hands: 2,
-  saying: 'Hi!',
-  friends: ""
-};
-
-const woman = {
-  species: 'human',
-  name: 'Beverly',
-  gender: 'female',
-  legs: 2,
-  hands: 2,
-  saying: "What a nice day!",
-  friends: ""
-};
-
-const catWoman = {
-  species: 'cat-Woman',
-  name: 'Maggie',
-  gender: 'female',
-  legs: 4,
-  hands: 0,
-  saying: cat.saying,
-  friends: ""
-};
-
-woman.friends += `${man.name}, ${cat.name} - a ${cat.species}`;
-man.friends += `${woman.name}, ${dog.name} - a ${dog.species}`;
-catWoman.friends += `${cat.name} - a ${cat.species}`;
-dog.friends = `${man.name}, ${woman.name}`;
-
-function message (obj) {
-  print(Object.values(obj).join('; '));
+class Person extends Inhabitant {
+  constructor(name, gender, saying, friends, species='human', legs=2, hands=2) {
+    super(name, gender, saying, friends)
+    this.species = species;
+    this.legs = legs;
+    this.hands = hands;
+  }
+  toString() {
+    return `Since I'm <em>${this.species}</em>,I have ${this.legs} legs and ${this.hands} hands.` + super.toString();
+  } 
 }
 
-message(man);
-message(woman);
-message(dog);
-message(cat);
-message(catWoman);
+class Animal extends Inhabitant {
+  constructor(name, gender, saying, species, friends, legs=4, hands=0) {
+    super(name, gender, saying, friends )
+    this.species = species;
+    this.legs = legs;
+    this.hands = hands;
+  }
+  toString() {
+    return `Since I'm <em>${this.species}</em>, I have ${this.legs} legs and ${this.hands} hands.` + super.toString();
+  } 
+}
+
+class Creature extends Person{
+  constructor(name, gender, saying, friends, species = 'half-human', legs = 2, hands = 2) {
+    super (name, gender, saying, friends, species, legs=2, hands=2) 
+  }
+  toString() {
+    return super.toString();
+  } 
+}
+
+const cat = new Animal("Toby", "male","Meow! Feed me!","cat", "some human");
+const man = new Person("Bill", "male","Hi!", "Beverly");
+const woman = new Person("Beverly", "female","What a nice day!",man.name);
+const dog = new Animal("Rex", "male", "Woof-woof!","dog", woman.name);
+const catWoman = new Creature("Maggie", "female",cat.saying,cat.name);
+
+const arrOfInhabitants = [man, woman, dog, cat, catWoman];
+
+arrOfInhabitants.forEach((el) => { print(el.toString(),'div') });
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
