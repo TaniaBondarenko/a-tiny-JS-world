@@ -1,18 +1,11 @@
-/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
-   Complete the below for code reviewers' convenience:
-
-   Code repository: _put repo URL here_
-   Web app: _put project's github pages URL here_
-   */
-
-// ======== OBJECTS DEFINITIONS ========
-// Define your objects here
 class Inhabitant {
-  constructor(name, gender, saying, friends) {
+  constructor(name, gender, saying, friends,legs, hands) {
     this.name = name;
     this.gender = gender;
     this.saying = saying;
     this.friends = friends;
+    this.legs = legs;
+    this.hands = hands;
   }
   toString() {
     return (` I\'m <b>${this.name}</b>, a ${this.gender}. To my friend ${this.friends} I always say: "${this.saying}"`);
@@ -21,27 +14,25 @@ class Inhabitant {
 
 class Person extends Inhabitant {
   constructor(name, gender, saying, friends, species='human', legs=2, hands=2) {
-    super(name, gender, saying, friends)
+    super(name, gender, saying, friends,legs,hands)
     this.species = species;
-    this.legs = legs;
-    this.hands = hands;
+
   }
   toString() {
     return `Since I'm <em>${this.species}</em>,I have ${this.legs} legs and ${this.hands} hands.` + super.toString();
   } 
-}
+};
 
 class Animal extends Inhabitant {
-  constructor(name, gender, saying, species, friends, legs=4, hands=0) {
-    super(name, gender, saying, friends )
+  constructor(name, gender, saying, species, friends, legs=4) {
+    super(name, gender, saying, friends,legs )
     this.species = species;
-    this.legs = legs;
-    this.hands = hands;
+
   }
   toString() {
-    return `Since I'm <em>${this.species}</em>, I have ${this.legs} legs and ${this.hands} hands.` + super.toString();
+    return `Since I'm <em>${this.species}</em>, I have ${this.legs} legs.` + super.toString();
   } 
-}
+};
 
 class Creature extends Person{
   constructor(name, gender, saying, friends, species = 'half-human', legs = 2, hands = 2) {
@@ -50,7 +41,7 @@ class Creature extends Person{
   toString() {
     return super.toString();
   } 
-}
+};
 
 const cat = new Animal("Toby", "male","Meow! Feed me!","cat", "some human");
 const man = new Person("Bill", "male","Hi!", "Beverly");
