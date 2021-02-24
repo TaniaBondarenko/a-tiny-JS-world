@@ -1,50 +1,79 @@
-class Inhabitant {
-  constructor(name, gender, saying, friends,species,legs) {
-    this.name = name;
-    this.gender = gender;
-    this.saying = saying;
-    this.friends = friends;
-    this.species = species;
-    this.legs = legs;
-  }
+/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
+   Complete the below for code reviewers' convenience:
 
-  toString() {
-    return (`I'm a <em>${this.species}</em> and I have ${this.legs} legs. I\'m <b>${this.name}</b>, a ${this.gender}. To my friend ${this.friends} I always say: "${this.saying}"`);
-  }
+   Code repository: _put repo URL here_
+   Web app: _put project's github pages URL here_
+   */
+
+// ======== creatureECTS DEFINITIONS ========
+// Define your creatureects here
+const cat = {
+  species: "cat",
+  name: "Toby",
+  gender: "male",
+  legs: 4,
+  hands: 0,
+  saying: "Meow! Feed me!",
+  friends: "no one",
 };
 
-class Person extends Inhabitant {
-  constructor(name, gender, saying, friends, species='human', legs=2, hands=2) {
-    super(name, gender, saying, friends, species, legs)
-    this.hands = hands;
-  }
-  
-  toString() {
-    return ` I have ${this.hands} hands because ` + super.toString();
-  } 
+const dog = {
+  species: "dog",
+  name: "Rex",
+  gender: "male",
+  legs: 4,
+  hands: 0,
+  saying: "Woof-woof!",
+  friends: "",
 };
 
-class Animal extends Inhabitant {
-  constructor(name, gender, saying, friends,species, legs=4) {
-    super(name, gender, saying, friends,species, legs)
-  }
+const male = {
+  species: "human",
+  name: "Bill",
+  gender: "male",
+  legs: 2,
+  hands: 2,
+  saying: "Hi!",
+  friends: "",
 };
 
-class Creature extends Person{
-  constructor(name, gender, saying, friends, species = 'half-human', legs = 2, hands = 2) {
-    super (name, gender, saying, friends, species, legs, hands) 
-  }
+const female = {
+  species: "human",
+  name: "Beverly",
+  gender: "female",
+  legs: 2,
+  hands: 2,
+  saying: "What a nice day!",
+  friends: "",
 };
 
-const cat = new Animal("Toby", "male", "Meow! Feed me!", "some human", "cat");
-const man = new Person("Bill", "male", "Hi!", "Beverly");
-const woman = new Person("Beverly", "female", "What a nice day!", man.name);
-const dog = new Animal("Rex", "male", "Woof-woof!", woman.name, "dog");
-const catWoman = new Creature("Maggie", "female", cat.saying, cat.name);
+const catWoman = {
+  species: "cat-Woman",
+  name: "Maggie",
+  gender: "female",
+  legs: 2,
+  hands: 2,
+  friends: "",
+};
 
-const arrOfInhabitants = [man, woman, dog, cat, catWoman];
+catWoman.saying = cat.saying;
 
-arrOfInhabitants.forEach((el) => { print(el.toString(),'div') });
+dog.friends += `${female.name}, ${male.name}`;
+male.friends += `${female.name}, ${cat.name} - a ${cat.species}`;
+female.friends += `${dog.name} - a ${dog.species}`;
+catWoman.friends += `${cat.name} - a ${cat.species}`;
+
+const inhabitants = [cat, dog, male, female, catWoman];
+
+function printCreatureDatas(creature) {
+  print(
+    ["species", "name", "gender", "legs", "hands", "saying", "friends"]
+      .map((propertyName) => `${propertyName}: ${creature[propertyName]}`)
+      .join("; ") + `;`
+  );
+}
+
+inhabitants.forEach((inhabitant) => printCreatureDatas(inhabitant));
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
@@ -64,5 +93,3 @@ arrOfInhabitants.forEach((el) => { print(el.toString(),'div') });
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
    */
-
-
