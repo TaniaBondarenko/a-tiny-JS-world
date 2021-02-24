@@ -1,12 +1,3 @@
-/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
-   Complete the below for code reviewers' convenience:
-
-   Code repository: _put repo URL here_
-   Web app: _put project's github pages URL here_
-   */
-
-// ======== creatureECTS DEFINITIONS ========
-// Define your creatureects here
 const cat = {
   species: "cat",
   name: "Toby",
@@ -66,11 +57,7 @@ catWoman.friends += `${cat.name} - a ${cat.species}`;
 const inhabitants = [cat, dog, male, female, catWoman];
 
 function printCreatureDatas(creature) {
-  print(
-    ["species", "name", "gender", "legs", "hands", "saying", "friends"]
-      .map((propertyName) => `${propertyName}: ${creature[propertyName]}`)
-      .join("; ") + `;`
-  );
+  print(["species", "name", "gender", "legs", "hands", "saying", "friends"].map((propertyName) => `${creature[propertyName]}`).join("; ") + `;`);
 }
 
 inhabitants.forEach((inhabitant) => printCreatureDatas(inhabitant));
